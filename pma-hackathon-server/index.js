@@ -17,8 +17,12 @@ const hackathonServer = new HackathonServer(pgClient);
 
 app.use(cors());
 app.use('/api/initialize', async (req, res) => {
-  await hackathonServer.initialize();
-  res.send('Initialized');
+  try {
+    await hackathonServer.initialize();
+    res.send('Initialized');
+  } catch (e) {
+    res.status(500).send(e.message);
+  }
 });
 app.use('/api/galleries', (req, res) => {
   const galleryIds = hackathonServer.getGalleries();
