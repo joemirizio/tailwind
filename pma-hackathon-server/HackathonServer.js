@@ -12,9 +12,13 @@ class HackathonServer {
   }
 
   async initialize() {
-    const artworkData = await this.getArtworkFromGalleries(this.getGalleries());
-    await this.recommendationEngine.initialize();
-    await this.recommendationEngine.loadData(artworkData);
+    try {
+      const artworkData = await this.getArtworkFromGalleries(this.getGalleries());
+      await this.recommendationEngine.initialize();
+      await this.recommendationEngine.loadData(artworkData);
+    } catch (e) {
+      throw new Error('Failed to initialize', e)
+    }
   }
 
   getGalleries() {
