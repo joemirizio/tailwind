@@ -37,7 +37,7 @@ class PmaApiClient {
    */
   getObjectsByGallery(id) {
     const endpoint = 'collection/object/location'
-    return apiRequest(endpoint, { name: id });
+    return this.apiRequest(endpoint, { name: id });
   }
 
   /**
@@ -47,7 +47,7 @@ class PmaApiClient {
    */
   getObject(id) {
     const endpoint = 'collection/object';
-    return apiRequest(endpoint, { query: id });
+    return this.apiRequest(endpoint, { query: id });
   }
 
 }
