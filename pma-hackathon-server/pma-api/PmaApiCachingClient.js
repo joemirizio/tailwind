@@ -32,7 +32,7 @@ class PmaApiCachingClient {
     if (!fs.existsSync(galleryObjectsFile)) {
       // Fetch gallery data
       galleryObjects = await Promise.all(galleryIds.map(gallery => 
-        pma.getObjectsByGallery(gallery)
+        this.pma.getObjectsByGallery(gallery)
       ));
       // Cache results
       fs.writeFile(galleryObjectsFile, JSON.stringify(galleryObjects), () =>
@@ -61,7 +61,7 @@ class PmaApiCachingClient {
         // Fetch object data
         console.debug(`Fetching ${galleryName} from API`);
         try {
-          objectData = await Promise.all(gallery.ObjectIDs.map(id => pma.getObject(id)));
+          objectData = await Promise.all(gallery.ObjectIDs.map(id => this.pma.getObject(id)));
         } catch (e) {
           console.error(`Failed to read ${galleryName} data`, e);
         }
