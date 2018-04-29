@@ -49,6 +49,8 @@
 
 <script>
   import axios from 'axios';
+
+  const apiUri = process.env.API_URI || 'http://localhost:3001';
   
   export default {
     data() {
@@ -68,7 +70,7 @@
       async getRecommendations(artworkId) {
         this.recommendationArtwork = this.findArtworkById(artworkId);
 
-        const recommendations = (await axios.get(`http://localhost:3001/api/recommended/${artworkId}`)).data;
+        const recommendations = (await axios.get(`${apiUri}/api/recommended/${artworkId}`)).data;
         this.recommendations = recommendations.map(recommendation => {
           const match = this.findArtworkById(recommendation.art_id);
           // Add recommendation data to matched artwork
@@ -79,9 +81,9 @@
     },
     async asyncData({ params, error }) {
       try {
-        const galleryIds = (await axios.get('http://localhost:3001/api/galleries')).data;
+        const galleryIds = (await axios.get(`${apiUri}/api/galleries`)).data;
         const galleryIdParam = galleryIds.join(',');
-        const galleryObjects = (await axios.get(`http://localhost:3001/api/galleryObjects/${galleryIdParam}`)).data;
+        const galleryObjects = (await axios.get(`${apiUri}/api/galleryObjects/${galleryIdParam}`)).data;
         return { galleryIds, galleryObjects };
       } catch (e) {
         console.error(e);
