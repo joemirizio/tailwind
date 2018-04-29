@@ -1,0 +1,24 @@
+{
+  "es": {
+    "host": "192.168.99.100:32769",
+    "index": "art",
+    "resultSize": 10000,
+    "logLevel": "info"
+  },
+  "art": {
+    "mediaDir": "/Volumes/ARTHACK/PMA_Hackathon_2017/Media",
+    "dataDir": "/Volumes/ARTHACK/PMA_Hackathon_2017/Data",
+    "collectionData": "Hackathon-collectiondata.json"
+  },
+  "ar": {
+    "artoolkitDir": "/Volumes/ARTHACK/ARToolKit5-bin-5.3.2r1-OSX",
+    "genTexDataArgs": [
+      "-level=2",
+      "-leveli=1",
+      "-dpi=300",
+      "-min_dpi=20",
+      "-max_dpi=120",
+      "-loglevel=INFO"
+    ]
+  }
+}

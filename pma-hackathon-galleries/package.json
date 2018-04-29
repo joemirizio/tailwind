@@ -1,0 +1,13 @@
+{
+  "name": "pma-hackathon-galleries",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nuxt"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "nuxt": "^1.4.0"
+  }
+}
