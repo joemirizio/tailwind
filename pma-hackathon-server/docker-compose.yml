@@ -1,0 +1,15 @@
+version: '2'
+
+services:
+  db:
+    image: postgres
+    restart: always
+  server:
+    build: .
+    ports:
+     - "8000:8000"
+  client:
+    build: ../pma-hackathon-galleries
+    restart: always
+    ports:
+     - "3001:80"
