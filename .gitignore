@@ -1,6 +1,6 @@
 .env
 
-/data
+data
 
 node_modules
 .nuxt

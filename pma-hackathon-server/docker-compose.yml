@@ -4,12 +4,21 @@ services:
   db:
     image: postgres
     restart: always
+    volumes:
+     - ./data/postgres:/var/lib/postgresql/data
   server:
     build: .
+    volumes:
+     - ./data:/data
     ports:
      - "8000:8000"
   client:
     build: ../pma-hackathon-galleries
     restart: always
     ports:
-     - "3001:80"
+     - "80:80"
+    environment:
+     - HOST=0.0.0.0
+     - PORT=80
+     - API_URI=http://server:8000
+     #- API_URI=http://18.204.162.129:8000
