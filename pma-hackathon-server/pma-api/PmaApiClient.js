@@ -26,8 +26,12 @@ class PmaApiClient {
     const queryString = queryParams.join('&');
     const query = `${this.baseUri}/${endpoint}?${queryString}`;
 
-    const response = await fetch(query);
-    return await response.json();
+    try {
+      const response = await fetch(query);
+      return await response.json();
+    } catch (e) {
+      console.error(`Error fetching results for ${query}`, e);
+    }
   }
 
   /**
