@@ -21,6 +21,7 @@ app.use('/api/initialize', async (req, res) => {
     await hackathonServer.initialize();
     res.send('Initialized');
   } catch (e) {
+    console.error(e);
     res.status(500).send(e.message);
   }
 });

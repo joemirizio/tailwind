@@ -1,4 +1,5 @@
 const fetch = require('node-fetch');
+const retry = require('async-retry')
 
 class PmaApiClient {
 
@@ -27,8 +28,11 @@ class PmaApiClient {
     const query = `${this.baseUri}/${endpoint}?${queryString}`;
 
     try {
-      const response = await fetch(query);
-      return await response.json();
+      // Need to retry because PMA API can sometimes return invalid responses
+      return await retry(async bail => {
+        const response = await fetch(query);
+        return response.json();
+      });
     } catch (e) {
       console.error(`Error fetching results for ${query}`, e);
     }

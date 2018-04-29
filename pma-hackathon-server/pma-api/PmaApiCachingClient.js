@@ -30,14 +30,18 @@ class PmaApiCachingClient {
 
     const galleryObjectsFile = path.join(this.cacheDir, 'galleryObjects.json');
     if (!fs.existsSync(galleryObjectsFile)) {
-      // Fetch gallery data
-      galleryObjects = await Promise.all(galleryIds.map(gallery => 
-        this.pma.getObjectsByGallery(gallery)
-      ));
-      // Cache results
-      fs.writeFile(galleryObjectsFile, JSON.stringify(galleryObjects), () =>
-        console.debug(`Wrote ${galleryObjectsFile} to cache`)
-      );
+      try {
+        // Fetch gallery data
+        galleryObjects = await Promise.all(galleryIds.map(gallery => 
+          this.pma.getObjectsByGallery(gallery)
+        ));
+        // Cache results
+        fs.writeFile(galleryObjectsFile, JSON.stringify(galleryObjects), () =>
+          console.debug(`Wrote ${galleryObjectsFile} to cache`)
+        );
+      } catch (e) {
+        console.error('Failed to read gallery data', e);
+      }
     } else {
       // Load gallery data from cache
       galleryObjects = JSON.parse(await readFilePromise(galleryObjectsFile))
@@ -62,13 +66,13 @@ class PmaApiCachingClient {
         console.debug(`Fetching ${galleryName} from API`);
         try {
           objectData = await Promise.all(gallery.ObjectIDs.map(id => this.pma.getObject(id)));
+          // Cache results
+          fs.writeFile(galleryFile, JSON.stringify(objectData), () =>
+            console.debug(`Wrote ${galleryFile} to cache`)
+          );
         } catch (e) {
           console.error(`Failed to read ${galleryName} data`, e);
         }
-        // Cache results
-        fs.writeFile(galleryFile, JSON.stringify(objectData), () =>
-          console.debug(`Wrote ${galleryFile} to cache`)
-        );
       } else {
         // Load object data from cache
         console.debug(`Fetching ${galleryName} from cache`);

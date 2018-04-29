@@ -17,7 +17,7 @@ class HackathonServer {
       await this.recommendationEngine.initialize();
       await this.recommendationEngine.loadData(artworkData);
     } catch (e) {
-      throw new Error('Failed to initialize', e)
+      throw new Error(`Failed to initialize: ${e.message}`);
     }
   }
 
