@@ -1,0 +1,11 @@
+<ul>
+{% for recommendation in recommendations %}
+  <li>
+    <div>
+      <h2>{{ recommendation.artwork.title }}</h2>
+      <img src="{{ recommendation.artwork.thumbnail }}" height="100" />
+      <small>{{ recommendation.weight }}</small>
+      <p>{{ recommendation.description }}.</p>
+    </div>
+{% endfor %}
+</ul

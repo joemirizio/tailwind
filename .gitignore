@@ -4,3 +4,5 @@ data
 
 node_modules
 .nuxt
+
+db.sqlite3
