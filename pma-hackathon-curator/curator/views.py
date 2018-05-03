@@ -66,7 +66,7 @@ def recommendation_descriptions(recommendation):
   # Add 'and'
   message_length = len(messages)
   if message_length > 1:
-    messages[message_length - 1] = 'and ' + messages[message_length - 1];
+    messages[message_length - 1] = 'and ' + messages[message_length - 1]
 
-  message = ', '.join(messages) if (message_length > 2) else ' '.join(messages);
+  message = ', '.join(messages) if (message_length > 2) else ' '.join(messages)
   return 'These pieces are ' + message;
