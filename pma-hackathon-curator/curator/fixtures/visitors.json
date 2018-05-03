@@ -1,0 +1,6 @@
+[
+  { "model": "curator.Visitor", "pk": 0, "fields": { "persona": 0 } },
+  { "model": "curator.Visitor", "pk": 1, "fields": { "persona": 1 } },
+  { "model": "curator.Visitor", "pk": 2, "fields": { "persona": 2 } },
+  { "model": "curator.Visitor", "pk": 3, "fields": { "persona": 3 } }
+]

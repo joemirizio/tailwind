@@ -1,0 +1,6 @@
+[
+  { "model": "curator.Persona", "pk": 0, "fields": { "name": "Adventurer" } },
+  { "model": "curator.Persona", "pk": 1, "fields": { "name": "Creative" } },
+  { "model": "curator.Persona", "pk": 2, "fields": { "name": "Scholar" } },
+  { "model": "curator.Persona", "pk": 3, "fields": { "name": "Spiritualist" } }
+]

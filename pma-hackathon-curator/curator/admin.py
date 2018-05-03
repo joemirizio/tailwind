@@ -5,10 +5,10 @@ from .models import Artwork, ArtworkAttribute, Gallery, GalleryActivity, Reactio
 
 
 class ArtworkAdmin(admin.ModelAdmin):
-  list_display = ('gallery', 'title', 'artist', 'image', 'fact')
-  list_editable = ['fact']
-  list_filter = ['gallery']
-  search_fields = ('title', 'artist')
+  list_display = ('id', 'gallery', 'title', 'artist', 'image', 'fact')
+  list_editable = ('fact',)
+  list_filter = ('gallery',)
+  search_fields = ('id', 'title', 'artist')
   
   def image(self, obj):  # receives the instance as an argument
       return format_html('''
@@ -28,11 +28,17 @@ class GalleryAdmin(admin.ModelAdmin):
   class GalleryActivityInline(admin.TabularInline):
     model = GalleryActivity
   
-  inlines = [GalleryActivityInline]
+  inlines = (GalleryActivityInline,)
 
 
 class ReactionAdmin(admin.ModelAdmin):
-  pass
+  list_display = ('visitor', 'visitor_persona', 'reaction_type', 'artwork')
+  list_filter = ('visitor__persona', 'reaction_type')
+  search_fields = ('artwork',)
+
+  def visitor_persona(self, obj):
+    return obj.visitor.persona
+  visitor_persona.short_description = 'Persona'
 
 
 admin.site.register(Artwork, ArtworkAdmin)

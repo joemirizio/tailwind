@@ -1,0 +1,6 @@
+[
+  { "model": "curator.ReactionType", "pk": 0, "fields": { "symbol": "😍", "value": 2 } },
+  { "model": "curator.ReactionType", "pk": 1, "fields": { "symbol": "😀", "value": 1 } },
+  { "model": "curator.ReactionType", "pk": 2, "fields": { "symbol": "😕", "value": -1 } },
+  { "model": "curator.ReactionType", "pk": 3, "fields": { "symbol": "💩", "value": -2 } }
+]
