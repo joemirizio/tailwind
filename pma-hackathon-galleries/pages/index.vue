@@ -50,7 +50,7 @@
 <script>
   import axios from 'axios';
 
-  const apiUri = process.env.API_URI || 'http://localhost:3001';
+  const apiUri = process.env.API_URI || 'http://18.204.162.129:8000' || 'http://localhost:3001';
   
   export default {
     data() {

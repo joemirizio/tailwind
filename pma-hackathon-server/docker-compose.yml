@@ -20,12 +20,14 @@ services:
     environment:
      - HOST=0.0.0.0
      - PORT=80
-     - API_URI=http://server:8000
-     #- API_URI=http://18.204.162.129:8000
+     #- API_URI=http://server:8000
+     - API_URI=http://18.204.162.129:8000
   client:
     build: ../pma-hackathon-curator
     restart: always
     ports:
-      - "80:3000"
+     - "80:8000"
     volumes:
-      ./data/db.sqlite3:/data/db.sqlite3
+     - ./data/db.sqlite3:/data/db.sqlite3
+    environment:
+     - API_URI=http://18.204.162.129:8000
