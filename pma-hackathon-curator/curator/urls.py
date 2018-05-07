@@ -18,6 +18,9 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('recommendations/<int:artwork_id>', views.recommendations),
+    path('', views.recommendation),
+    path('recommendation/<int:artwork_id>', views.recommendationsForArtwork),
+    path('api/recommendation/<str:persona>/<int:gallery_id>', views.recommendationForGallery),
+    path('api/recommendations/<str:persona>/<int:artwork_id>', views.recommendationsForArtwork),
     path('admin/', admin.site.urls),
 ]

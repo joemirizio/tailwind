@@ -1,10 +1,21 @@
 from django.shortcuts import render
 from django.db import connection
+from django.core import serializers
+from django.http import HttpResponse
 
+import json
 import re
 from .models import Artwork
 
-def recommendations(request, artwork_id):
+def recommendation(request):
+  return render(request, 'index.html')
+
+def recommendationForGallery(request, gallery_id, persona=None):
+  objects = Artwork.objects.filter(gallery_id=gallery_id)
+  data = serializers.serialize('json', objects)
+  return HttpResponse(data, content_type="application/json")
+
+def recommendationsForArtwork(request, artwork_id, persona=None):
   with connection.cursor() as cursor:
     cursor.execute('''
       SELECT 
@@ -31,7 +42,7 @@ def recommendations(request, artwork_id):
   recommendations = [dict(weight=row[3], description=row[4], artwork=Artwork.objects.get(pk=row[0])) for row in rows]
   context = {'recommendations': recommendations}
 
-  return render(request, 'recommendations.html', context)
+  return render(request, 'recommendations.html', context=context)
 
 def row_append(row, value):
   ret = list(row)
