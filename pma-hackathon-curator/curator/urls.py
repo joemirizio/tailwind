@@ -19,8 +19,13 @@ from . import views
 
 urlpatterns = [
     path('', views.recommendation),
-    path('recommendation/<int:artwork_id>', views.recommendationsForArtwork),
-    path('api/recommendation/<str:persona>/<int:gallery_id>', views.recommendationForGallery),
-    path('api/recommendations/<str:persona>/<int:artwork_id>', views.recommendationsForArtwork),
+    path('api/personas', views.get_personas),
+    path('api/reactions', views.get_reactions),
+    path('api/galleries', views.get_galleries),
+    path('api/gallery/<int:gallery_id>/activity', views.get_gallery_activity),
+    path('api/gallery/<int:gallery_id>/recommendation', views.get_gallery_recommendation),
+    path('api/reaction', views.add_reaction),
+    path('api/visitor', views.add_visitor),
+    path('recommendation/<int:artwork_id>', views.recommendations_for_artwork),
     path('admin/', admin.site.urls),
 ]
