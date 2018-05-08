@@ -1,0 +1,22 @@
+[
+  { 
+    "name": "Scholar",
+    "description": "You are thoughtful and focused, curious about \"hows\" and \"whys\" where others see only \"whats\".",
+    "image": "https://images.unsplash.com/photo-1472173148041-00294f0814a2?dpr=1&auto=format&fit=crop&w=1000"
+  },
+  { 
+    "name": "Creative",
+    "description": "You are curious and insightful, your mind showing you details and perspectives that others miss.",
+    "image": "https://images.unsplash.com/photo-1466784828399-9a9921e8bdfd?dpr=1&auto=format&fit=crop&w=1000"
+  },
+  { 
+    "name": "Adventurer",
+    "description": "You are bold and inquisitive, wanting to explore the world and all its hidden secrets.",
+    "image": "https://images.unsplash.com/photo-1418225043143-90858d2301b4?dpr=1&auto=format&fit=crop&w=1000"
+  },
+  { 
+    "name": "Spiritualist",
+    "description": "You are present in the world, seeking not mere facts, but connections and deeper truths.",
+    "image": "https://images.unsplash.com/photo-1505079403222-b5bbf1484f19?dpr=1&auto=format&fit=crop&w=1000"
+  }
+]

@@ -1,0 +1,57 @@
+html, body {
+  margin: 0;
+}
+
+.app {
+  font-family: 'Titillium Web', sans-serif;
+  padding: 50px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  box-sizing: border-box;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.app p {
+  font-family: 'Titillium Web Light', sans-serif;
+  font-size: 20px;
+}
+
+.app h1 {
+  text-transform: uppercase;
+  font-size: 50px;
+  font-weight: normal;
+}
+.app h2 {
+  text-transform: uppercase;
+  font-size: 22px;
+  font-weight: normal;
+}
+.app .directions {
+  flex: 1;
+}
+
+.app button, .app a {
+  transition: background-color 0.3s ease-out, color 0.1s ease-out;
+  font-size: 20px;
+  text-transform: uppercase;
+  color: white;
+  background-color: transparent;
+  border: 1px solid white;
+  font: inherit;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin: 20px;
+  text-decoration: none;
+}
+
+.page-enter-active, .page-leave-active {
+  transition: opacity .5s;
+}
+.page-enter, .page-leave-to {
+  opacity: 0;
+}
