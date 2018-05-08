@@ -36,7 +36,7 @@
         };
       },
       twitterStatus() {
-        return encodeURI(`Tailwind says I'm ${this.pronoun()} "${this.name()}"! See what you are at https://museumcrawlers.com`)
+        return encodeURI(`Tailwind says I'm ${this.pronoun()} "${this.name()}"! See what you are at http://museumcrawlers.com`)
       }
     }
   };
