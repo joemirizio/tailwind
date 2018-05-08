@@ -27,7 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
-    '18.204.162.129'
+    '18.204.162.129',
+    'museumcrawlers.com'
 ]
 
 
