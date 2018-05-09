@@ -33,7 +33,7 @@ class GalleryAdmin(admin.ModelAdmin):
 
 class ReactionAdmin(admin.ModelAdmin):
   list_display = ('visitor', 'visitor_persona', 'reaction_type', 'artwork')
-  list_filter = ('visitor__persona', 'reaction_type')
+  list_filter = ('visitor__persona', 'artwork__gallery', 'reaction_type')
   search_fields = ('artwork',)
 
   def visitor_persona(self, obj):

@@ -20,6 +20,7 @@ class Gallery(models.Model):
 
 
 class GalleryActivity(models.Model):
+  name = models.CharField(max_length=100)
   description = models.CharField(max_length=800)
   gallery = models.ForeignKey(Gallery, on_delete=models.CASCADE)
   persona = models.ForeignKey(Persona, on_delete=models.CASCADE)
@@ -29,7 +30,7 @@ class GalleryActivity(models.Model):
     unique_together = ('gallery', 'persona')
 
   def __str__(self):
-    return '{} - {}'.format(self.gallery, self.persona)
+    return self.name
 
 
 class Artwork(models.Model):
