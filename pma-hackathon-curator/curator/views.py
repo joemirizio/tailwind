@@ -36,7 +36,7 @@ def get_gallery_recommendation(request, gallery_id):
   if not persona_id:
     raise TypeError('Invalid persona_id')
   # TODO implement
-  artwork = random.choice(Artwork.objects.all())
+  artwork = random.choice(Artwork.objects.filter(gallery_id=gallery_id))
   return _json_serialize((artwork,))
 
 @csrf_exempt
