@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.db import connection
 from django.core import serializers
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 
 import json
@@ -68,7 +68,8 @@ def _dict_serialize(_dict):
 
 
 def recommendation(request):
-  return render(request, 'index.html')
+  return HttpResponseRedirect("http://museumcrawlers.com:8080")
+  #return render(request, 'index.html')
 
 def recommendation_for_gallery(request, gallery_id, persona=None):
   objects = Artwork.objects.filter(gallery_id=gallery_id)
