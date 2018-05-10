@@ -18,7 +18,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.recommendation),
+    path('', views.index),
     path('api/personas', views.get_personas),
     path('api/reactions', views.get_reactions),
     path('api/galleries', views.get_galleries),

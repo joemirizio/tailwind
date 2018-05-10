@@ -3,6 +3,7 @@ from django.db import connection
 from django.core import serializers
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
+from django.db.models import Sum
 
 import json
 import random
@@ -32,9 +33,21 @@ def get_gallery_activity(request, gallery_id):
   return _json_serialize((activity,))
 
 def get_gallery_recommendation(request, gallery_id):
-  persona_id = request.GET.get('persona_id')
-  if not persona_id:
-    raise TypeError('Invalid persona_id')
+  visitor_id = request.GET.get('visitor_id')
+  if not visitor_id:
+    raise TypeError('Invalid id')
+  
+  visitor = Visitor.objects.get(pk=visitor_id)
+  persona = visitor.persona
+
+  reactions = (Reaction.objects
+               .filter(visitor__persona=persona, artwork__gallery=gallery_id)
+               .values('reaction_type__value', 'artwork')
+               .annotate(weight=Sum('reaction_type__value'))
+               .distinct().order_by('-weight'))
+  for reaction in reactions:
+    print('{}: {}'.format(reaction['artwork'].name, reaction['weight']))
+
   # TODO implement
   artwork = random.choice(Artwork.objects.filter(gallery_id=gallery_id))
   return _json_serialize((artwork,))
@@ -67,14 +80,10 @@ def _dict_serialize(_dict):
   return HttpResponse(json.dumps(_dict), content_type="application/json")
 
 
-def recommendation(request):
+def index(request):
   return HttpResponseRedirect("http://museumcrawlers.com:8080")
   #return render(request, 'index.html')
 
-def recommendation_for_gallery(request, gallery_id, persona=None):
-  objects = Artwork.objects.filter(gallery_id=gallery_id)
-  data = serializers.serialize('json', objects)
-  return HttpResponse(data, content_type="application/json")
 
 def recommendations_for_artwork(request, artwork_id, persona=None):
   with connection.cursor() as cursor:
