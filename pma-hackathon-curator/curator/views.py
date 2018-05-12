@@ -4,6 +4,7 @@ from django.core import serializers
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Sum
+from django.core.exceptions import ObjectDoesNotExist
 
 import json
 import random
@@ -53,24 +54,48 @@ def get_gallery_recommendation(request, gallery_id):
   return _json_serialize((artwork,))
 
 @csrf_exempt
-def add_reaction(request, visitor_id, reaction_type_id, artwork_id):
-  visitor = Visitor.objects.get(pk=visitor_id)
-  reaction = ReactionType.objects.get(pk=reaction_type_id)
-  artwork = Artwork.objects.get(pk=artwork_id)
-  Reaction(visitor=visitor, reaction_type=reaction, artwork=artwork).save()
-  return _dict_serialize({ 'message': 'ok'})
+def add_reaction(request):
+  if request.method != 'POST':
+    raise TypeError('Only POST is supported')
+
+  visitor_id = request.POST.get('visitor_id')
+  reaction_type_id = request.POST.get('reaction_type_id')
+  artwork_id = request.POST.get('artwork_id')
+  if visitor_id is None:
+    raise TypeError('Invalid visitor_id')
+  if reaction_type_id is None:
+    raise TypeError('Invalid reaction_type_id')
+  if artwork_id is None:
+    raise TypeError('Invalid artwork_id')
+
+  try:
+    visitor = Visitor.objects.get(pk=visitor_id)
+    reaction = ReactionType.objects.get(pk=reaction_type_id)
+    artwork = Artwork.objects.get(pk=artwork_id)
+    Reaction(visitor=visitor, reaction_type=reaction, artwork=artwork).save()
+    return _dict_serialize({ 'message': 'ok'})
+  except ObjectDoesNotExist:
+    return _dict_serialize({ 'error': 'Object does not exist' })
 
 @csrf_exempt
 def add_visitor(request):
-  visitor_id = request.POST.get('vistor_id')
+  if request.method != 'POST':
+    raise TypeError('Only POST is supported')
+
+  visitor_id = request.POST.get('visitor_id')
   persona_id = request.POST.get('persona_id')
-  if not visitor_id:
-    raise TypeError('Invalid id')
-  if not persona_id:
-    raise TypeError('Invalid persona')
-  persona = Persona.objects.get(pk=persona_id)
-  Visitor(id=visitor_id, persona=persona).save()
-  return _dict_serialize({ 'message': 'ok'})
+  if visitor_id is None:
+    raise TypeError('Invalid visitor_id')
+  if persona_id is None:
+    raise TypeError('Invalid persona_id')
+
+  try:
+    persona = Persona.objects.get(pk=persona_id)
+    Visitor(id=visitor_id, persona=persona).save()
+    return _dict_serialize({ 'message': 'ok'})
+  except ObjectDoesNotExist:
+    return _dict_serialize({ 'error': 'Object does not exist' })
+
 
 def _json_serialize(objects):
   data = serializers.serialize('json', objects)
