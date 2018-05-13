@@ -36,7 +36,7 @@ def get_gallery_activity(request, gallery_id):
 def get_gallery_recommendation(request, gallery_id):
   visitor_id = request.GET.get('visitor_id')
   if not visitor_id:
-    raise TypeError('Invalid id')
+    raise TypeError('Invalid visitor_id')
   
   visitor = Visitor.objects.get(pk=visitor_id)
   persona = visitor.persona
@@ -47,11 +47,19 @@ def get_gallery_recommendation(request, gallery_id):
                .annotate(weight=Sum('reaction_type__value'))
                .distinct().order_by('-weight'))
   for reaction in reactions:
-    print('{}: {}'.format(reaction['artwork'].name, reaction['weight']))
+    artwork = Artwork.objects.get(pk=reaction['artwork'])
+    # TODO Use top artwork for first recommendation
 
   # TODO implement
   artwork = random.choice(Artwork.objects.filter(gallery_id=gallery_id))
-  return _json_serialize((artwork,))
+  artwork_serialized = serializers.serialize('json', (artwork,))
+
+  # Get singular element
+  artwork_serialized_dict = json.loads(artwork_serialized)
+  artwork = artwork_serialized_dict[0]
+
+  response = { 'recommendation': artwork, 'reason': 'Just cause' }
+  return _dict_serialize(response)
 
 @csrf_exempt
 def add_reaction(request):
