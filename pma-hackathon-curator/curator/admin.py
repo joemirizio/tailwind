@@ -1,5 +1,7 @@
 from django.contrib import admin
+from django.urls import reverse
 from django.utils.html import format_html
+from django.utils.safestring import mark_safe    
 
 from .models import Artwork, ArtworkAttribute, Gallery, GalleryActivity, Reaction
 
@@ -32,9 +34,16 @@ class GalleryAdmin(admin.ModelAdmin):
 
 
 class ReactionAdmin(admin.ModelAdmin):
-  list_display = ('visitor', 'visitor_persona', 'reaction_type', 'artwork')
+  list_display = ('visitor', 'visitor_persona', 'reaction_type', 'artwork_link')
   list_filter = ('visitor__persona', 'artwork__gallery', 'reaction_type')
   search_fields = ('artwork',)
+
+  def artwork_link(self, obj):
+    return mark_safe('<a href="{}">{}</a>'.format(
+        reverse("admin:curator_artwork_change", args=(obj.artwork.id,)),
+        obj.artwork.title
+    ))
+  artwork_link.short_description = 'Artwork'
 
   def visitor_persona(self, obj):
     return obj.visitor.persona

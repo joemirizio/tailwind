@@ -26,6 +26,6 @@ urlpatterns = [
     path('api/gallery/<int:gallery_id>/recommendation', views.get_gallery_recommendation),
     path('api/reaction', views.add_reaction),
     path('api/visitor', views.add_visitor),
-    path('recommendation/<int:artwork_id>', views.recommendations_for_artwork),
+    #path('recommendation/<int:artwork_id>', views.recommendations_for_artwork),
     path('admin/', admin.site.urls),
 ]
