@@ -5,6 +5,7 @@ from django.utils.safestring import mark_safe
 
 from .models import Artwork, ArtworkAttribute, Gallery, GalleryActivity, Reaction
 
+admin.site.site_header = 'Tailwind Curator'
 
 class ArtworkAdmin(admin.ModelAdmin):
   list_display = ('id', 'gallery', 'title', 'artist', 'image', 'fact')
