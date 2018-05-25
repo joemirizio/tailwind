@@ -52,22 +52,22 @@ def get_gallery_recommendation(request, gallery_id):
   visitor_reactions = visitor.reaction_set.filter(artwork__gallery=gallery_id)
   
   reason = ''
-  if visitor_reactions.exclude(reaction_type=NO_RESPONSE).exists():
+  if visitor_reactions.filter(reaction_type__value__gt=0).exists():
     try:
       recommendations = recommendations_visitor(visitor_id, gallery_id)
       artwork = recommendations[0]['artwork']
       reason = recommendations[0]['description']
     except:
-      raise Http404("No more recommendations")
+      raise Http404("No more personal recommendations")
   else:
     # For gallery, no visitor reactions, so choose based on persona reactions
     visitor_reactions_ids = [reaction.artwork.id for reaction in visitor_reactions]
     filtered_reactions = [reaction['artwork']
                           for reaction in persona_reactions if reaction['artwork'] not in visitor_reactions_ids]
     if not filtered_reactions:
-      raise Http404("No more recommendations")
+      raise Http404("No more persona recommendations")
     artwork = Artwork.objects.get(pk=filtered_reactions[0])
-    reason = 'Highly rated amongst {}s'.format(persona.name)
+    reason = 'Highly rated amongst {}s. React positively to this piece to see more like this one!'.format(persona.name)
 
   # Add a "no response" default reaction
   react(visitor_id, NO_RESPONSE, artwork.id)
@@ -98,7 +98,7 @@ def add_reaction(request):
 
   try:
     react(visitor_id, reaction_type_id, artwork_id)
-    return _dict_serialize({ 'message': 'ok'})
+    return _dict_serialize({ 'message': 'ok' })
   except ObjectDoesNotExist:
     return _dict_serialize({ 'error': 'Object does not exist' })
 
@@ -117,7 +117,7 @@ def add_visitor(request):
   try:
     persona = Persona.objects.get(pk=persona_id)
     Visitor(id=visitor_id, persona=persona).save()
-    return _dict_serialize({ 'message': 'ok'})
+    return _dict_serialize({ 'message': 'ok' })
   except ObjectDoesNotExist:
     return _dict_serialize({ 'error': 'Object does not exist' })
 
