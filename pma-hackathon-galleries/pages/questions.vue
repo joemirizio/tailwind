@@ -19,42 +19,50 @@ export default {
   data() {
     return { 
       question: 0,
-      scores: [0, 0, 0, 0]
+      scores: [0, 0, 0, 0],
+      isSwitched: false
     };
   },
   methods: {
     choiceA() {
-      return questions[this.question][0];
+      return questions[this.question][this.actualChoice(0)];
     },
     choiceB() {
-      return questions[this.question][1];
+      return questions[this.question][this.actualChoice(1)];
     },
     chooseA() {
-      this.calculateScore(0);
+      this.calculateScore(this.actualChoice(0));
     },
     chooseB() {
-      this.calculateScore(1);
+      this.calculateScore(this.actualChoice(1));
+    },
+    actualChoice(index) {
+      return !this.isSwitched ? index : (!index + 0);
     },
     calculateScore(i) {
       switch (this.question) {
         case 0:
         case 1:
-          this.scores[this.question + i] = 1;
+          this.scores[this.question * 2 + i] = 1;
           break;
         case 2:
         case 3:
+        case 4:
           this.givePoints(SCHOLAR, ADVENTURER, i);
           break;
-        case 4:
         case 5:
-          this.givePoints(SCHOLAR, SPIRITUALIST, i);
-          break;
         case 6:
         case 7:
-          this.givePoints(CREATIVE, ADVENTURER, i);
+          this.givePoints(SCHOLAR, SPIRITUALIST, i);
           break;
         case 8:
         case 9:
+        case 10:
+          this.givePoints(CREATIVE, ADVENTURER, i);
+          break;
+        case 11:
+        case 12:
+        case 13:
           this.givePoints(CREATIVE, SPIRITUALIST, i);
           break;
       }
@@ -71,10 +79,14 @@ export default {
         } else {
           this.question = 8;
         }
-      } else if (this.question % 2 === 1) {
+        this.isSwitched = (Math.random() >= 0.5);
+      } else if ((this.question - 1) % 3 === 0) {
         const team = this.determineTeam();
         window.location = `result/${team}`
       } else {
+        if (this.question > 0) {
+          this.isSwitched = (Math.random() >= 0.5);
+        }
         this.question++;
       }
     },

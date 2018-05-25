@@ -1,12 +1,16 @@
 [
   ["Reading", "Painting"],
   ["Hiking", "Meditation"],
-  ["Running on the beach", "Sipping drinks on the beach"],
+  ["Sipping drinks on the beach", "Running on the beach"],
   ["Studying a cure for a disease", "Visiting ruins in the Jungle"],
-  ["Understanding the Entire Universe", "Observing the Big Bang"],
+  ["Solving a great mystery", "Finding a new species of animal"],
+  ["Observing the Big Bang", "Understanding the Entire Universe"],
   ["Travelling to distant stars", "Meeting an alien race"],
+  ["Learning a new language", "7 days of silence"],
   ["Talking to Picasso", "Talking to Abraham Lincoln"],
-  ["Fighting in the civil war", "Helping Da Vinci build flying machines"],
+  ["Helping Da Vinci build flying machines", "Fighting in the civil war"],
+  ["Molding something out of clay", "Leading a team to victory"],
   ["Taking acid with Salvador Dali", "Drinking wine with the Pope"],
-  ["Going to a buddhist temple", "Studying a urinal at PMA"]
+  ["Studying a urinal at PMA", "Going to a buddhist temple"],
+  ["Carving figurines out of wood", "Attending a tea ceremony"]
 ]

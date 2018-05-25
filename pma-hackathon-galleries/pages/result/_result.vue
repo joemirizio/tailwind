@@ -24,7 +24,6 @@
     },
     methods: {
       name() {
-        console.log(this.team);
         return teams[this.team].name;
       },
       pronoun() {
