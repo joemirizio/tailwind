@@ -4,7 +4,10 @@
     <h2>According to your answers, you are</h2>
     <h1>{{ name() }}</h1>
     <p class="info">{{ description() }}</p>
-    <div><a :href="`https://twitter.com/home?status=${twitterStatus()}`">Share</a></div>
+    <div class="buttons">
+      <a class="primary" :href="`https://twitter.com/home?status=${twitterStatus()}`">Share</a>
+      <a href="/">Back</a>
+    </div>
   </div>
 </div>
 </template>
@@ -68,7 +71,7 @@
 
 .result .container::after {
   position: absolute;
-  top: 20%;
+  top: 110px;
   height: 50px;
   left: 0;
   width: 50px;
@@ -78,12 +81,26 @@
 .result .info {
   flex: 1;
 }
-.result button {
+
+.result .buttons {
+  height: 50px;
+}
+
+.result a {
   color: black;
   border-color: black;
 }
-.result button:hover {
+.result a:hover {
   color: #79ccb7;
   background-color: black;
+}
+.result a.primary {
+  color: #79ccb7;
+  background-color: black;
+}
+
+.result a.primary:hover {
+  color: black;
+  background-color: transparent;
 }
 </style>
