@@ -39,6 +39,9 @@ export default {
     actualChoice(index) {
       return !this.isSwitched ? index : (!index + 0);
     },
+    setSwitched() {
+      this.isSwitched = (Math.random() >= 0.5);
+    },
     calculateScore(i) {
       switch (this.question) {
         case 0:
@@ -73,19 +76,19 @@ export default {
         if (this.scores[SCHOLAR] && this.scores[ADVENTURER]) {
           this.question = 2;
         } else if (this.scores[SCHOLAR] && this.scores[SPIRITUALIST]) {
-          this.question = 4;
+          this.question = 5;
         } else if (this.scores[CREATIVE] && this.scores[ADVENTURER]) {
-          this.question = 6;
-        } else {
           this.question = 8;
+        } else {
+          this.question = 11;
         }
-        this.isSwitched = (Math.random() >= 0.5);
+        this.setSwitched();
       } else if ((this.question - 1) % 3 === 0) {
         const team = this.determineTeam();
         window.location = `result/${team}`
       } else {
         if (this.question > 0) {
-          this.isSwitched = (Math.random() >= 0.5);
+          this.setSwitched();
         }
         this.question++;
       }

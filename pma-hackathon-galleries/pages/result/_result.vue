@@ -1,7 +1,7 @@
 <template>
 <div class="app result" :style="backgroundImageStyle()">
   <div class="container">
-    <h2>According to your answers, you are</h2>
+    <h2>You're an art</h2>
     <h1>{{ name() }}</h1>
     <p class="info">{{ description() }}</p>
     <div class="buttons">
@@ -70,7 +70,7 @@
 
 .result .container::after {
   position: absolute;
-  top: 110px;
+  top: 70px;
   height: 50px;
   left: 0;
   width: 50px;
